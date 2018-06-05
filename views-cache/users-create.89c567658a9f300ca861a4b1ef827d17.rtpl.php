@@ -6,9 +6,9 @@
     Lista de Usuários
   </h1>
   <ol class="breadcrumb">
-    <li><a href="http://localhost/ecommerce/admin"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="http://localhost/ecommerce/admin/users">Usuários</a></li>
-    <li class="active"><a href="http://localhost/ecommerce/admin/users/create">Cadastrar</a></li>
+    <li><a href="<?php echo htmlspecialchars( $url_base, ENT_COMPAT, 'UTF-8', FALSE ); ?>admin"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="<?php echo htmlspecialchars( $url_base, ENT_COMPAT, 'UTF-8', FALSE ); ?>admin/users">Usuários</a></li>
+    <li class="active"><a href="<?php echo htmlspecialchars( $url_base, ENT_COMPAT, 'UTF-8', FALSE ); ?>admin/users/create">Cadastrar</a></li>
   </ol>
 </section>
 
@@ -23,7 +23,7 @@
         </div>
         <!-- /.box-header -->
         <!-- form start -->
-        <form role="form" action="http://localhost/ecommerce/admin/users/create" method="post">
+        <form role="form" action="<?php echo htmlspecialchars( $url_base, ENT_COMPAT, 'UTF-8', FALSE ); ?>admin/users/create" method="post">
           <div class="box-body">
             <div class="form-group">
               <label for="desperson">Nome</label>

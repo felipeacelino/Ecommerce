@@ -28,6 +28,7 @@ class Page {
 
         $this->tpl = new Tpl;
 
+        $this->tpl->assign("url_base", "http://localhost/ecommerce/");
         $this->setData($this->options['data']);
 
         if ($this->options['header'] === true) {
