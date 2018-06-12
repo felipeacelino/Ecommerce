@@ -272,16 +272,16 @@ desired effect
                 <ul class="sidebar-menu">
                     <li class="header">HEADER</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li class="active">
+                    <li>
                         <a href="<?php echo htmlspecialchars( $url_base, ENT_COMPAT, 'UTF-8', FALSE ); ?>admin/users">
                             <i class="fa fa-user"></i>
                             <span>Usuários</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="<?php echo htmlspecialchars( $url_base, ENT_COMPAT, 'UTF-8', FALSE ); ?>admin/categories">
                             <i class="fa fa-link"></i>
-                            <span>Another Link</span>
+                            <span>Categorias</span>
                         </a>
                     </li>
                     <li class="treeview">
