@@ -280,8 +280,14 @@ desired effect
                     </li>
                     <li>
                         <a href="<?php echo htmlspecialchars( $url_base, ENT_COMPAT, 'UTF-8', FALSE ); ?>admin/categories">
-                            <i class="fa fa-link"></i>
+                            <i class="fa fa-list"></i>
                             <span>Categorias</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo htmlspecialchars( $url_base, ENT_COMPAT, 'UTF-8', FALSE ); ?>admin/products">
+                            <i class="fa fa-shopping-bag"></i>
+                            <span>Produtos</span>
                         </a>
                     </li>
                     <li class="treeview">
