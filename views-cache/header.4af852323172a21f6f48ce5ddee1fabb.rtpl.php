@@ -113,7 +113,7 @@
                 <div class="col-sm-6">
                     <div class="logo">
                         <h1>
-                            <a href="#">
+                            <a href="<?php echo $url_base; ?>">
                                 <img src="<?php echo $url_base; ?>res/site/img/logo.png">
                             </a>
                         </h1>
@@ -122,7 +122,7 @@
 
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="<?php echo $url_base; ?>res/site/carrinho.html">Carrinho -
+                        <a href="<?php echo $url_base; ?>cart">Carrinho -
                             <span class="cart-amunt">R$100</span>
                             <i class="fa fa-shopping-cart"></i>
                             <span class="product-count">5</span>
@@ -148,13 +148,13 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active">
-                            <a href="#">Home</a>
+                            <a href="<?php echo $url_base; ?>">Home</a>
                         </li>
                         <li>
-                            <a href="#">Produtos</a>
+                            <a href="<?php echo $url_base; ?>products">Produtos</a>
                         </li>
                         <li>
-                            <a href="#">Carrinho</a>
+                            <a href="<?php echo $url_base; ?>cart">Carrinho</a>
                         </li>
                     </ul>
                 </div>
