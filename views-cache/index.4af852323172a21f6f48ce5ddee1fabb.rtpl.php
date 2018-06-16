@@ -112,7 +112,7 @@
                                 <div class="product-f-image">
                                     <img src="<?php echo $value1["desphoto"]; ?>" alt="<?php echo $value1["desproduct"]; ?>">
                                     <div class="product-hover">
-                                        <a href="#" class="add-to-cart-link">
+                                        <a href="<?php echo $url_base; ?>cart/<?php echo $value1["idproduct"]; ?>/add" class="add-to-cart-link">
                                             <i class="fa fa-shopping-cart"></i> Comprar</a>
                                         <a href="<?php echo $url_base; ?>products/<?php echo $value1["desurl"]; ?>" class="view-details-link">
                                             <i class="fa fa-link"></i> Ver Detalhes</a>

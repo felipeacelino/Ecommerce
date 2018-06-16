@@ -38,35 +38,41 @@
                                 </thead>
                                 <tbody>
                                     
+                                    <?php $counter1=-1;  if( isset($products) && ( is_array($products) || $products instanceof Traversable ) && sizeof($products) ) foreach( $products as $key1 => $value1 ){ $counter1++; ?>
+
+
                                     <tr class="cart_item">
                                         <td class="product-remove">
-                                            <a title="Remove this item" class="remove" href="#">×</a> 
+                                            <a title="Remove this item" class="remove" href="<?php echo $url_base; ?>cart/<?php echo $value1["idproduct"]; ?>/remove">×</a> 
                                         </td>
 
                                         <td class="product-thumbnail">
-                                            <a href="#"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="<?php echo $url_base; ?>res/site/img/product-thumb-2.jpg"></a>
+                                            <a href="<?php echo $url_base; ?>products/<?php echo $value1["desurl"]; ?>"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="<?php echo $value1["desphoto"]; ?>"></a>
                                         </td>
 
                                         <td class="product-name">
-                                            <a href="#">Ship Your Idea</a> 
+                                            <a href="<?php echo $url_base; ?>products/<?php echo $value1["desurl"]; ?>"><?php echo $value1["desproduct"]; ?></a> 
                                         </td>
 
                                         <td class="product-price">
-                                            <span class="amount">$700.00</span> 
+                                            <span class="amount">R$ <?php echo formatPrice($value1["vlprice"]); ?></span> 
                                         </td>
 
                                         <td class="product-quantity">
                                             <div class="quantity buttons_added">
-                                                <input type="button" class="minus" value="-" onclick="window.location.href = '#'">
-                                                <input type="number" size="4" class="input-text qty text" title="Qty" value="1" min="0" step="1">
-                                                <input type="button" class="plus" value="+" onclick="window.location.href = '#'">
+                                                <input type="button" class="minus" value="-" onclick="window.location.href = '<?php echo $url_base; ?>cart/<?php echo $value1["idproduct"]; ?>/minus'">
+                                                <input type="number" size="4" class="input-text qty text" title="Qty" value="<?php echo $value1["nrqtd"]; ?>" min="0" step="1">
+                                                <input type="button" class="plus" value="+" onclick="window.location.href = '<?php echo $url_base; ?>cart/<?php echo $value1["idproduct"]; ?>/add'">
                                             </div>
                                         </td>
 
                                         <td class="product-subtotal">
-                                            <span class="amount">$700.00</span> 
+                                            <span class="amount">R$ <?php echo formatPrice($value1["vltotal"]); ?></span> 
                                         </td>
                                     </tr>
+
+                                    <?php } ?>
+
                                     
                                 </tbody>
                             </table>
