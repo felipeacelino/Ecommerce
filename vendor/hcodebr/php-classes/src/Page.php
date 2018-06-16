@@ -21,7 +21,8 @@ class Page {
         $config = array(
             "tpl_dir"       => $_SERVER['DOCUMENT_ROOT'].$tpl_dir,
             "cache_dir"     => $_SERVER['DOCUMENT_ROOT']."/ecommerce/views-cache/",
-            "debug"         => false // set to false to improve tehe speed
+            "debug"         => false, // set to false to improve tehe speed
+            "auto_escape"   => false
         );
 
         Tpl::configure( $config );

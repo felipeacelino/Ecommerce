@@ -43,3 +43,30 @@ $app->get('/category/:idcategory', function($idcategory) {
 	));
 	
 });
+
+$app->get('/products/:desurl', function($desurl) {
+
+	$product = new Product();
+	$product->getFromURL($desurl);
+
+	$categories = $product->getCategories();
+	$categoriesLink = array();
+
+	foreach ($categories as $value) {
+		
+		$link = "<a href='http://localhost/ecommerce/category/".$value['idcategory']."'>".$value['descategory']."</a>";
+
+		array_push($categoriesLink, $link);
+
+	}
+
+	$categoriesLink = implode(', ', $categoriesLink);
+
+	$page = new Page();
+ 
+	$page->setTpl("product-detail", array(
+		"product" => $product->getValues(),
+		"categories" => $categoriesLink
+	));
+	
+});
