@@ -10,6 +10,7 @@ class User extends Model {
     
     const SESSION = "User";
     const SECRET = "HcodePhp7_Secret";
+    const SESSION_ERROR = "UserError";
     
     public static function login($login, $password) {
          
@@ -28,8 +29,8 @@ class User extends Model {
         if (password_verify($password, $data['despassword']) === true) {
             
             $user = new User();
-            $user->setData($data);
-
+            $user->get($data['iduser']);
+    
             $_SESSION[User::SESSION] = $user->getValues();
 
             return $user;
@@ -68,12 +69,18 @@ class User extends Model {
     }
 
     public static function verifyLogin($inadmin = true) {
-        if (User::checkLogin($inadmin)) {
 
-            header("Location: http://localhost/ecommerce/admin/login");
+        if (!User::checkLogin($inadmin)) {
+
+            if ($inadmin === true) {
+                header("Location: http://localhost/ecommerce/admin/login");
+            } else {
+                header("Location: http://localhost/ecommerce/login");
+            }
             exit;
 
         }
+
     }
 
     public static function logout() {
@@ -240,6 +247,28 @@ class User extends Model {
             ":password" => $password,
             ":iduser" => $this->getiduser()
         ));
+
+    }
+
+    public static function setError($msg) {
+
+        $_SESSION[User::SESSION_ERROR] = $msg;
+
+    }
+
+    public static function getError() {
+
+        $msg = (isset($_SESSION[User::SESSION_ERROR])) ? $_SESSION[User::SESSION_ERROR] : "";
+
+        User::clearError();
+
+        return $msg;
+
+    }
+
+    public static function clearError() {
+
+        $_SESSION[User::SESSION_ERROR] = NULL;
 
     }
 }

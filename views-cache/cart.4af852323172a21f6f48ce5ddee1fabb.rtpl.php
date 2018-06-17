@@ -19,7 +19,7 @@
                 <div class="product-content-right">
                     <div class="woocommerce">
 
-                        <form action="/checkout">
+                        <form action="<?php echo $url_base; ?>checkout">
                             
                             <?php if( $error != '' ){ ?>
 
@@ -90,7 +90,7 @@
                                     
                                     <div class="coupon">
                                         <label for="cep">CEP:</label>
-                                        <input type="text" placeholder="00000-000" value="" id="cep" class="input-text" name="zipcode">
+                                        <input type="text" placeholder="00000-000" value="<?php echo $cart["deszipcode"]; ?>" id="cep" class="input-text" name="zipcode">
                                         <input type="submit" formmethod="post" formaction="<?php echo $url_base; ?>cart/freight" value="CALCULAR" class="button">
                                     </div>
 

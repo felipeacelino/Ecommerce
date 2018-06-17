@@ -51,13 +51,24 @@
                                     <i class="fa fa-heart"></i> Lista de Desejos</a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="<?php echo $url_base; ?>cart">
                                     <i class="fa fa-shopping-cart"></i> Meu Carrinho</a>
                             </li>
+                            <?php if( checkLogin(false) ){ ?>
                             <li>
-                                <a href="#">
+                                <a href="<?php echo $url_base; ?>profile">
+                                    <i class="fa fa-user"></i> <?php echo getUserName(); ?></a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $url_base; ?>logout">
+                                    <i class="fa fa-close"></i> Sair</a>
+                            </li>
+                            <?php }else{ ?>
+                            <li>
+                                <a href="<?php echo $url_base; ?>login">
                                     <i class="fa fa-lock"></i> Login</a>
                             </li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
