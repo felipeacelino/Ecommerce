@@ -52,26 +52,31 @@
             </div>
             <div class="col-md-6">
                 
+                <?php if( $errorRegister != '' ){ ?>
+
                 <div class="alert alert-danger">
-                    Error!
+                    <?php echo $errorRegister; ?>
+
                 </div>
+                <?php } ?>
+
 
                 <form id="register-form-wrap" action="<?php echo $url_base; ?>register" class="register" method="post">
                     <h2>Criar conta</h2>
                     <p class="form-row form-row-first">
                         <label for="nome">Nome Completo <span class="required">*</span>
                         </label>
-                        <input type="text" id="nome" name="name" class="input-text" value="">
+                        <input type="text" id="nome" name="name" class="input-text" value="<?php echo $registerValues["name"]; ?>">
                     </p>
                     <p class="form-row form-row-first">
                         <label for="email">E-mail <span class="required">*</span>
                         </label>
-                        <input type="email" id="email" name="email" class="input-text" value="">
+                        <input type="email" id="email" name="email" class="input-text" value="<?php echo $registerValues["email"]; ?>">
                     </p>
                     <p class="form-row form-row-first">
                         <label for="phone">Telefone
                         </label>
-                        <input type="text" id="phone" name="phone" class="input-text" value="">
+                        <input type="text" id="phone" name="phone" class="input-text" value="<?php echo $registerValues["phone"]; ?>">
                     </p>
                     <p class="form-row form-row-last">
                         <label for="senha">Senha <span class="required">*</span>

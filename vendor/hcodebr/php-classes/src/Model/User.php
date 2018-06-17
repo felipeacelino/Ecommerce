@@ -11,6 +11,7 @@ class User extends Model {
     const SESSION = "User";
     const SECRET = "HcodePhp7_Secret";
     const SESSION_ERROR = "UserError";
+    const SESSION_REGISTER_ERROR = "UserRegisterError";
     
     public static function login($login, $password) {
          
@@ -250,6 +251,18 @@ class User extends Model {
 
     }
 
+    public static function checkLoginExist($login) {
+
+        $sql = new Sql();    
+        
+        $results = $sql->select("SELECT * FROM tb_users WHERE deslogin=:deslogin", array(
+            ":deslogin" => $login
+        ));
+
+        return (count($results) > 0);
+
+    }
+
     public static function setError($msg) {
 
         $_SESSION[User::SESSION_ERROR] = $msg;
@@ -269,6 +282,28 @@ class User extends Model {
     public static function clearError() {
 
         $_SESSION[User::SESSION_ERROR] = NULL;
+
+    }
+
+    public static function setRegisterError($msg) {
+
+        $_SESSION[User::SESSION_REGISTER_ERROR] = $msg;
+
+    }
+
+    public static function getRegisterError() {
+
+        $msg = (isset($_SESSION[User::SESSION_REGISTER_ERROR])) ? $_SESSION[User::SESSION_REGISTER_ERROR] : "";
+
+        User::clearRegisterError();
+
+        return $msg;
+
+    }
+
+    public static function clearRegisterError() {
+
+        $_SESSION[User::SESSION_REGISTER_ERROR] = NULL;
 
     }
 }
