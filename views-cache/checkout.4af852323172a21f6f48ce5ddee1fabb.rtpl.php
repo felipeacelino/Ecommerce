@@ -1,5 +1,4 @@
 <?php if(!class_exists('Rain\Tpl')){exit;}?>
-
 <div class="product-big-title-area">
 	<div class="container">
 		<div class="row">
@@ -17,28 +16,41 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="product-content-right">
-					<form action="/checkout" class="checkout" method="post" name="checkout">
+					<form action="<?php echo $url_base; ?>checkout" class="checkout" method="post" name="checkout">
 						<div id="customer_details" class="col2-set">
 							<div class="row">
 								<div class="col-md-12">
 
+									<?php if( $error != '' ){ ?>
 									<div class="alert alert-danger">
-										Error!
+										<?php echo $error; ?>
 									</div>
+									<?php } ?>
 
 									<div class="woocommerce-billing-fields">
 										<h3>Endereço de entrega</h3>
 										<p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
-											<label class="" for="billing_address_1">Cep <abbr title="required" class="required">*</abbr>
+											<label class="" for="billing_cep_1">Cep <abbr title="required" class="required">*</abbr>
 											</label>
-                                            <input type="text" value="<?php echo $cart["deszipcode"]; ?>" placeholder="00000-000" id="billing_address_1" name="zipcode" class="input-text ">
-                                            <input type="submit" value="Atualizar CEP" id="place_order" class="button alt" formaction="/checkout" formmethod="get">
+											<input type="text" value="<?php echo $cart["deszipcode"]; ?>" placeholder="00000-000" id="billing_cep_1" name="zipcode" class="input-text ">
+											<input type="submit" value="Atualizar CEP" id="place_order" class="button alt" formaction="<?php echo $url_base; ?>checkout" formmethod="get">
 										</p>
-										<p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
-											<label class="" for="billing_address_1">Endereço <abbr title="required" class="required">*</abbr>
-											</label>
-											<input type="text" value="<?php echo $address["desaddress"]; ?>" placeholder="Logradouro, número e bairro" id="billing_address_1" name="desaddress" class="input-text ">
-										</p>
+										<div class="row">
+											<div class="col-sm-9">
+												<p id="billing_address_1_field" class="form-row form-row-wide address-field validate-required">
+													<label class="" for="billing_address_1">Endereço <abbr title="required" class="required">*</abbr>
+													</label>
+													<input type="text" value="<?php echo $address["desaddress"]; ?>" placeholder="Logradouro" id="billing_address_1" name="desaddress" class="input-text ">
+												</p>
+											</div>
+											<div class="col-sm-3">
+												<p id="billing_number_1_field" class="form-row form-row-wide number-field validate-required">
+													<label class="" for="billing_number_1">Número <abbr title="required" class="required">*</abbr>
+													</label>
+													<input type="text" value="<?php echo $address["desnumber"]; ?>" placeholder="Número" id="billing_address_1" name="desnumber" class="input-text ">
+												</p>
+											</div>
+										</div>
 										<p id="billing_address_2_field" class="form-row form-row-wide address-field">
 											<input type="text" value="<?php echo $address["descomplement"]; ?>" placeholder="Complemento (opcional)" id="billing_address_2" name="descomplement" class="input-text ">
                                         </p>
@@ -71,33 +83,33 @@
 													</tr>
 												</thead>
 												<tbody>
-                                                    
+                                                    <?php $counter1=-1;  if( isset($products) && ( is_array($products) || $products instanceof Traversable ) && sizeof($products) ) foreach( $products as $key1 => $value1 ){ $counter1++; ?>
 													<tr class="cart_item">
 														<td class="product-name">
-															Ship Your Idea <strong class="product-quantity">× 1</strong> 
+															<?php echo $value1["desproduct"]; ?> <strong class="product-quantity">× <?php echo $value1["nrqtd"]; ?></strong> 
 														</td>
 														<td class="product-total">
-															<span class="amount">$700.00</span>
+															<span class="amount">R$ <?php echo formatPrice($value1["vltotal"]); ?></span>
 														</td>
                                                     </tr>
-                                                    
+                                                    <?php } ?>
 												</tbody>
 												<tfoot>
 													<tr class="cart-subtotal">
 														<th>Subtotal</th>
-														<td><span class="amount">$700.00</span>
+														<td><span class="amount">R$ <?php echo formatPrice($cart["vlsubtotal"]); ?></span>
 														</td>
 													</tr>
 													<tr class="shipping">
 														<th>Frete</th>
 														<td>
-															$5.00
+															R$ <?php echo formatPrice($cart["vlfreight"]); ?>
 															<input type="hidden" class="shipping_method" value="free_shipping" id="shipping_method_0" data-index="0" name="shipping_method[0]">
 														</td>
 													</tr>
 													<tr class="order-total">
 														<th>Total do Pedido</th>
-														<td><strong><span class="amount">$705.00</span></strong> </td>
+														<td><strong><span class="amount">R$ <?php echo formatPrice($cart["vltotal"]); ?></span></strong> </td>
 													</tr>
 												</tfoot>
 											</table>
