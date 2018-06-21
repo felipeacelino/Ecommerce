@@ -99,12 +99,12 @@ class User extends Model {
 
     public function save() {
 
-        $sql = new Sql();   
+        $sql = new Sql();  
 
         $results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)", array(
             ":desperson" => $this->getdesperson(),
             ":deslogin" => $this->getdeslogin(),
-            ":despassword" => $this->getdespassword(),
+            ":despassword" => User::geraHash($this->getdespassword()),
             ":desemail" => $this->getdesemail(),
             ":nrphone" => $this->getnrphone(),
             ":inadmin" => $this->getinadmin()
@@ -148,7 +148,7 @@ class User extends Model {
             ":iduser" => $this->getiduser(),
             ":desperson" => $this->getdesperson(),
             ":deslogin" => $this->getdeslogin(),
-            ":despassword" => $this->getdespassword(),
+            ":despassword" => User::geraHash($this->getdespassword()),
             ":desemail" => $this->getdesemail(),
             ":nrphone" => $this->getnrphone(),
             ":inadmin" => $this->getinadmin()
@@ -250,7 +250,7 @@ class User extends Model {
         $sql = new Sql();
 
         $sql->query("UPDATE tb_users SET despassword = :password WHERE iduser = :iduser", array(
-            ":password" => $password,
+            ":password" => User::geraHash($password),
             ":iduser" => $this->getiduser()
         ));
 
@@ -343,6 +343,14 @@ class User extends Model {
         ));
 
         return $results;
+
+    }
+
+    public static function geraHash($password) {
+
+        return password_hash($password, PASSWORD_DEFAULT, [
+            "cost"=>12
+        ]);
 
     }
 }

@@ -326,17 +326,13 @@ $app->post('/register', function() {
 		exit;
 	}
 
-	$password = password_hash($_POST["password"], PASSWORD_DEFAULT, [
-        "cost"=>12
-    ]);
-
 	$user = new User();
 	$user->setData(array(
 		"inadmin" => 0,
 		"deslogin" => $_POST['email'],
 		"desperson" => $_POST['name'],
 		"desemail" => $_POST['email'],
-		"despassword" => $password,
+		"despassword" => $_POST["password"],
 		"nrphone" => $_POST['phone']
 	));
 	$user->save();
@@ -396,11 +392,7 @@ $app->post('/forgot/reset', function() {
 
 	$user->get((int)$forgot['iduser']);
 
-	$password = password_hash($_POST["password"], PASSWORD_DEFAULT, [
-        "cost"=>12
-    ]);
-
-	$user->setPassword($password);
+	$user->setPassword($_POST["password"]);
 
 	$page = new Page();
 
@@ -580,5 +572,69 @@ $app->get('/profile/orders/:idorder', function($idorder) {
 		"cart" => $cart->getValues(),
 		"products" => $cart->getProducts()
 	));
+
+});
+
+$app->get('/profile/change-password', function() {
+
+	User::verifyLogin(false);
+
+	$page = new Page();
+	$page->setTpl("profile-change-password", array(
+		"changePassError" => User::getError(),
+		"changePassSuccess" => User::getSuccess()
+	));
+
+});
+
+$app->post('/profile/change-password', function() {
+
+	User::verifyLogin(false);
+
+	if (!isset($_POST['current_pass']) || $_POST['current_pass'] == "") {
+		User::setError("Digite a senha atual.");
+		header("Location: http://localhost/ecommerce/profile/change-password");
+		exit;
+	}
+
+	if (!isset($_POST['new_pass']) || $_POST['new_pass'] == "") {
+		User::setError("Digite a nova senha.");
+		header("Location: http://localhost/ecommerce/profile/change-password");
+		exit;
+	}
+
+	if (!isset($_POST['new_pass_confirm']) || $_POST['new_pass_confirm'] == "") {
+		User::setError("Confirme a nova senha.");
+		header("Location: http://localhost/ecommerce/profile/change-password");
+		exit;
+	}
+
+	if ($_POST['current_pass'] === $_POST['new_pass']) {
+		User::setError("A nova senha deve ser diferente da senha atual.");
+		header("Location: http://localhost/ecommerce/profile/change-password");
+		exit;
+	}
+
+	if ($_POST['new_pass'] !== $_POST['new_pass_confirm']) {
+		User::setError("As senhas informadas são diferentes.");
+		header("Location: http://localhost/ecommerce/profile/change-password");
+		exit;
+	}
+
+	$user = User::getFromSession();
+
+	if (!password_verify($_POST['current_pass'], $user->getdespassword())) {
+		User::setError("A senha está inválida.");
+		header("Location: http://localhost/ecommerce/profile/change-password");
+		exit;
+	}
+
+	$user->setdespassword($_POST['new_pass']);
+	$user->update();
+	$_SESSION[User::SESSION] = $user->getValues();
+
+	User::setSuccess("Senha alterada com sucesso.");
+	header("Location: http://localhost/ecommerce/profile/change-password");
+	exit;
 
 });
