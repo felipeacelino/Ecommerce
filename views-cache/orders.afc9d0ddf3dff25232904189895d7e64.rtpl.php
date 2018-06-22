@@ -18,6 +18,19 @@
   	<div class="col-md-12">
   		<div class="box box-primary">
 
+          <div class="box-header">
+            <div class="box-tools">
+                <form action="<?php echo $url_base; ?>admin/orders">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="search" class="form-control pull-right" placeholder="Search" value="<?php echo $search; ?>">
+                    <div class="input-group-btn">
+                      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
             <div class="box-body no-padding">
               <table class="table table-striped">
                 <thead>
@@ -53,6 +66,13 @@
               </table>
             </div>
             <!-- /.box-body -->
+            <div class="box-footer clearfix">
+              <ul class="pagination pagination-sm no-margin pull-right">
+                <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
+                <li><a href="<?php echo $value1["href"]; ?>"><?php echo $value1["text"]; ?></a></li>
+                <?php } ?>
+              </ul>
+            </div>
           </div>
   	</div>
   </div>
