@@ -629,8 +629,7 @@ $app->post('/profile/change-password', function() {
 		exit;
 	}
 
-	$user->setdespassword($_POST['new_pass']);
-	$user->update();
+	$user->setPassword($_POST['new_pass']);
 	$_SESSION[User::SESSION] = $user->getValues();
 
 	User::setSuccess("Senha alterada com sucesso.");
