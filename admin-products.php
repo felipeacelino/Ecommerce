@@ -6,16 +6,40 @@ use \Hcode\Model\Product;
 
 $app->get('/admin/products', function() {
 
-    User::verifyLogin();
-    
-    $products = Product::listAll();
+	User::verifyLogin();
+	
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+
+	if ($search != "") {
+	
+		$pagination = Product::getPageSearch($search, $page);
+
+	} else {
+
+		$pagination = Product::getPage($page);
+
+	}
+
+	$pages = array();
+
+	for ($x=1; $x<=$pagination['pages']; $x++) {
+		array_push($pages, array(
+			"href" => "http://localhost/ecommerce/admin/products?".http_build_query(array(
+				"page" => $x,
+				"search" => $search
+			)),
+			"text" => $x
+		));
+	}
 
 	$page = new PageAdmin();
-
 	$page->setTpl("products", array(
-		'products' => $products
+		'products' => $pagination['data'],
+		'search' => $search,
+		'pages' => $pages
 	));
-	
+    	
 });
 
 $app->get('/admin/products/create', function() {
