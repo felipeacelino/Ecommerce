@@ -9,14 +9,38 @@ $app->get('/admin/categories', function() {
 
 	User::verifyLogin();
 
-	$categories = Category::listAll();
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+
+	if ($search != "") {
+	
+		$pagination = Category::getPageSearch($search, $page);
+
+	} else {
+
+		$pagination = Category::getPage($page);
+
+	}
+
+	$pages = array();
+
+	for ($x=1; $x<=$pagination['pages']; $x++) {
+		array_push($pages, array(
+			"href" => "http://localhost/ecommerce/admin/categories?".http_build_query(array(
+				"page" => $x,
+				"search" => $search
+			)),
+			"text" => $x
+		));
+	}
 
 	$page = new PageAdmin();
-
 	$page->setTpl("categories", array(
-		'categories' => $categories
+		'categories' => $pagination['data'],
+		'search' => $search,
+		'pages' => $pages
 	));
-	
+
 });
 
 $app->get('/admin/categories/create', function() {
